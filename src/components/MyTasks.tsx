@@ -14,13 +14,24 @@ export default function MyTasks() {
         setTasks(storedTasks);
     }, []);
 
+    // Handle status change from child
+    const handleStatusChange = (updatedTask: TaskInterface) => {
+        const updatedTasks = tasks.map((t) =>
+            t.title === updatedTask.title ? updatedTask : t,
+        );
+        setTasks(updatedTasks);
+        localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+    };
     return (
         <>
             {tasks.length > 0 ? (
                 <ul role="list">
                     {tasks.map((task) => (
                         <li key={task.title}>
-                            <Task task={task} />
+                            <Task
+                                task={task}
+                                onStatusChange={handleStatusChange}
+                            />
                         </li>
                     ))}
                 </ul>

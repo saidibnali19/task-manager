@@ -7,12 +7,12 @@ export default function AddTaskForm() {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [dueDate, setDueDate] = useState("");
-    const [priority, setPriority] = useState<"low" | "medium" | "high">(
-        "medium",
+    const [priority, setPriority] = useState<"Low" | "Medium" | "High">(
+        "Medium",
     );
     const [status, setStatus] = useState<
-        "pending" | "inProgress" | "completed"
-    >("pending");
+        "Pending" | "In Progress" | "Completed"
+    >("Pending");
 
     const router = useRouter();
 
@@ -79,13 +79,13 @@ export default function AddTaskForm() {
                         value={priority}
                         onChange={(e) =>
                             setPriority(
-                                e.target.value as "low" | "medium" | "high",
+                                e.target.value as "Low" | "Medium" | "High",
                             )
                         }
                     >
-                        <option value={"low"}>Low</option>
-                        <option value={"medium"}>Medium</option>
-                        <option value={"high"}>High</option>
+                        <option value={"Low"}>Low</option>
+                        <option value={"Medium"}>Medium</option>
+                        <option value={"High"}>High</option>
                     </select>
                 </label>
                 <label className="space-y-2">
@@ -97,15 +97,15 @@ export default function AddTaskForm() {
                         onChange={(e) =>
                             setStatus(
                                 e.target.value as
-                                    | "pending"
-                                    | "inProgress"
-                                    | "completed",
+                                    | "Pending"
+                                    | "In Progress"
+                                    | "Completed",
                             )
                         }
                     >
-                        <option value={"pending"}>Pending</option>
-                        <option value={"inProgress"}>In Progress</option>
-                        <option value={"completed"}>Completed</option>
+                        <option value={"Pending"}>Pending</option>
+                        <option value={"In Progress"}>In Progress</option>
+                        <option value={"Completed"}>Completed</option>
                     </select>
                 </label>
                 <div className="flex flex-wrap justify-end gap-2">
