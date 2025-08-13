@@ -15,7 +15,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body className="my-gradient-bg mask-clip-fill max-w-3xl mx-auto p-4 min-h-screen space-y-4 text-lg">
+            <body className="my-gradient-bg mx-auto min-h-screen max-w-3xl space-y-4 p-4 text-lg">
                 <Header />
                 <main>{children}</main>
             </body>

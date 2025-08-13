@@ -1,66 +1,32 @@
-import Link from "next/link";
-import CreateFirstTask from "./CreateFirstTask";
-import { CalendarRange, PencilLine, Trash2 } from "lucide-react";
+"use client";
 
-const TaskList = [
-    {
-        title: "Complete Project Proposal",
-        description:
-            "Finalize the Q4 marketing campaign proposal including budget breakdown, timeline, and resource allocation for the upcoming product launch.",
-        status: "Pending",
-        priority: "High Priority",
-        dueDate: "Due Tommorrow",
-    },
-];
+import { TaskInterface } from "@/types/task";
+import CreateFirstTask from "./CreateFirstTask";
+
+import Task from "./Task";
+import { useEffect, useState } from "react";
 
 export default function MyTasks() {
+    const [tasks, setTasks] = useState<TaskInterface[]>([]);
+
+    useEffect(() => {
+        const storedTasks = JSON.parse(localStorage.getItem("tasks") || "[]");
+        setTasks(storedTasks);
+    }, []);
+
     return (
         <>
-            {TaskList.length > 0 ? (
+            {tasks.length > 0 ? (
                 <ul role="list">
-                    {TaskList.map((task) => (
+                    {tasks.map((task) => (
                         <li key={task.title}>
-                            <article className="my-section space-y-4 relative before:content-[''] before:inset-[0_0_auto_0] before:h-1 before:bg-yellow-400 before:absolute  overflow-clip hover:before:h-2 before:transition-[height]">
-                                <input
-                                    name="check"
-                                    className="w-6 h-6 cursor-pointer"
-                                    type="checkbox"
-                                ></input>
-                                <h3 className="text-xl font-bold">
-                                    {task.title}
-                                </h3>
-                                <p className="line-clamp-2">
-                                    {task.description}
-                                </p>
-                                <div className="flex gap-4 flex-wrap items-center">
-                                    <span className="my-button my-tag !text-amber-900  from-yellow-100 to-yellow-300">
-                                        {task.status}
-                                    </span>
-                                    <span className="my-button my-tag !text-amber-900 from-pink-100 to-pink-300">
-                                        {task.priority}
-                                    </span>
-                                    <span className="flex gap-2 flex-wrap">
-                                        <CalendarRange />
-                                        <span className="text-yellow-400">
-                                            {task.dueDate}
-                                        </span>
-                                    </span>
-                                </div>
-                                <div className="flex gap-4 flex-wrap items-center">
-                                    <Link href={`/edit/${task.title}`}>
-                                        <PencilLine className="my-secondary-button" />
-                                    </Link>
-                                    <button>
-                                        <Trash2 className="my-secondary-button" />
-                                    </button>
-                                </div>
-                            </article>
+                            <Task task={task} />
                         </li>
                     ))}
                 </ul>
             ) : (
-                <article className="my-section space-y-4 min-h-[calc(100vh-9.3125rem)] grid grid-rows-[auto_1fr] gap-4">
-                    <h2 className="font-bold text-2xl">My Tasks</h2>
+                <article className="my-section grid min-h-[calc(100vh-9.3125rem)] grid-rows-[auto_1fr] gap-4 space-y-4">
+                    <h2 className="text-2xl font-bold">My Tasks</h2>
                     <CreateFirstTask />
                 </article>
             )}
