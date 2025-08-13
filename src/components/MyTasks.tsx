@@ -20,8 +20,9 @@ export default function MyTasks() {
                 <ul role="list">
                     {TaskList.map((task) => (
                         <li key={task.title}>
-                            <article className="my-section space-y-4">
+                            <article className="my-section space-y-4 relative before:content-[''] before:inset-[0_0_auto_0] before:h-1 before:bg-yellow-400 before:absolute  overflow-clip hover:before:h-2 before:transition-[height]">
                                 <input
+                                    name="check"
                                     className="w-6 h-6 cursor-pointer"
                                     type="checkbox"
                                 ></input>
