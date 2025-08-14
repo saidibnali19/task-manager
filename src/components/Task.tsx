@@ -2,22 +2,18 @@
 
 import { TaskInterface } from "@/types/task";
 import { formatDueDate } from "@/utils/formatDueDate";
-import {
-    CalendarRange,
-    Check,
-    PencilLine,
-    Trash2,
-    TriangleAlert,
-} from "lucide-react";
+import { CalendarRange, Check, PencilLine, TriangleAlert } from "lucide-react";
 import Link from "next/link";
 import { ReactNode, useRef } from "react";
+import DeleteTaskButton from "./DeleteTaskButton";
 
 interface TaskProps {
     task: TaskInterface;
     onStatusChange: (updatedTask: TaskInterface) => void;
+    onDelete: (id: string) => void;
 }
 
-export default function Task({ task, onStatusChange }: TaskProps) {
+export default function Task({ task, onStatusChange, onDelete }: TaskProps) {
     const checkboxRef = useRef<HTMLInputElement>(null);
 
     const handleCheckboxChange = () => {
@@ -142,12 +138,10 @@ export default function Task({ task, onStatusChange }: TaskProps) {
                     )}
                 </div>
                 <div className="flex flex-wrap items-center gap-4">
-                    <Link href={`/edit/${task.title}`}>
+                    <Link href={`/${task.id}/edit`}>
                         <PencilLine className="my-secondary-button" />
                     </Link>
-                    <button>
-                        <Trash2 className="my-secondary-button" />
-                    </button>
+                    <DeleteTaskButton id={task.id} onDelete={onDelete} />
                 </div>
             </article>
         </>

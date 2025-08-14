@@ -17,7 +17,7 @@ export default function MyTasks() {
     // Handle status change from child
     const handleStatusChange = (updatedTask: TaskInterface) => {
         const updatedTasks = tasks.map((t) => {
-            if (t.title === updatedTask.title) {
+            if (t.id === updatedTask.id) {
                 return {
                     ...t,
                     status: updatedTask.status,
@@ -34,15 +34,22 @@ export default function MyTasks() {
         localStorage.setItem("tasks", JSON.stringify(updatedTasks)); // persist in storage
     };
 
+    const handleDelete = (id: string) => {
+        const updated = tasks.filter((t) => t.id !== id);
+        setTasks(updated); // update state immediately
+        localStorage.setItem("tasks", JSON.stringify(updated)); // persist change
+    };
+
     return (
         <>
             {tasks.length > 0 ? (
                 <ul role="list">
                     {tasks.map((task) => (
-                        <li key={task.title}>
+                        <li key={task.id}>
                             <Task
                                 task={task}
                                 onStatusChange={handleStatusChange}
+                                onDelete={handleDelete}
                             />
                         </li>
                     ))}
