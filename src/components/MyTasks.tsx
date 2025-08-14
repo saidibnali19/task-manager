@@ -16,12 +16,24 @@ export default function MyTasks() {
 
     // Handle status change from child
     const handleStatusChange = (updatedTask: TaskInterface) => {
-        const updatedTasks = tasks.map((t) =>
-            t.title === updatedTask.title ? updatedTask : t,
-        );
-        setTasks(updatedTasks);
-        localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+        const updatedTasks = tasks.map((t) => {
+            if (t.title === updatedTask.title) {
+                return {
+                    ...t,
+                    status: updatedTask.status,
+                    completedDate:
+                        updatedTask.status === "Completed"
+                            ? new Date().toISOString()
+                            : null,
+                };
+            }
+            return t;
+        });
+
+        setTasks(updatedTasks); // update state so UI reacts
+        localStorage.setItem("tasks", JSON.stringify(updatedTasks)); // persist in storage
     };
+
     return (
         <>
             {tasks.length > 0 ? (

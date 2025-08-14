@@ -4,4 +4,5 @@ export interface TaskInterface {
     dueDate?: string;
     priority?: string;
     status?: string;
+    completedDate?: string | null;
 }
